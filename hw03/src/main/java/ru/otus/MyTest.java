@@ -8,44 +8,41 @@ import ru.otus.annotations.Test;
 public class MyTest {
 
     @Before
-    @Id(group = "a")
     void doBefore() throws Throwable {
         //throw new Exception("!!!");
+        System.out.println("doBefore");
     }
 
     @Test
-    @Id(group = "a")
     static void test() throws Throwable {
-        //throw new Exception("!!!");
+        throw new Exception("!!!");
     }
 
     @Test
-    @Id(group = "a")
     static void testAgain() throws Throwable {
         throw new Exception("!!?");
     }
 
     @After
-    @Id(group = "a")
     void doAfter() throws Throwable {
         //throw new Exception("!!!");
+        System.out.println("doAfter");
     }
 
     @Before
-    @Id(group = "b")
     void doBeforeOther() throws Throwable {
         //throw new Exception("!!!");
+        System.out.println("doBeforeOther");
     }
 
     @Test
-    @Id(group = "b")
     static void testOther() throws Throwable {
-        throw new Exception("!!!");
+        ///hrow new Exception("!!!");
     }
 
     @After
-    @Id(group = "b")
     void doAfterOther() throws Throwable {
         //throw new Exception("!!!");
+        System.out.println("doAfterOther");
     }
 }
