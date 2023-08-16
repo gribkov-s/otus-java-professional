@@ -6,8 +6,11 @@ import ru.otus.annotations.Log;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SuppressWarnings("java:S106")
 public class IoC {
@@ -32,20 +35,26 @@ public class IoC {
 
     static class InvHandlerByAnnotation implements InvocationHandler {
         private final Object object;
-        private final Class<? extends Annotation> annotation;
+        private final List<Pair<String, Class<?>[]>> methodsToHandle;
 
         InvHandlerByAnnotation(Object obj, Class<? extends Annotation> annotation) {
             this.object = obj;
-            this.annotation = annotation;
+            this.methodsToHandle =
+                    Arrays.stream(obj.getClass().getMethods())
+                            .filter(m -> m.isAnnotationPresent(annotation))
+                            .map(m -> new Pair<String, Class<?>[]>(
+                                    m.getName(), m.getParameterTypes()))
+                            .toList();
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-            Method methodOrig = object.getClass()
-                    .getMethod(method.getName(), method.getParameterTypes());
+            boolean isHandling = methodsToHandle.stream().anyMatch(m ->
+                    m.getKey().equals(method.getName()) &&
+                            Arrays.equals(m.getValue(), method.getParameterTypes()));
 
-            if (methodOrig.isAnnotationPresent(annotation)) {
+            if (isHandling) {
                 StringBuilder msg = new StringBuilder()
                         .append("executed method ")
                         .append(method.getName())
@@ -64,7 +73,7 @@ public class IoC {
                 }
                 System.out.println(msg);
             }
-            return method.invoke(object, args);
+            return method.invoke(object, args); //method.invoke(object, args);
         }
     }
 }
