@@ -5,6 +5,7 @@ include("hw02")
 include("hw03")
 include("hw05")
 include("hw06")
+include("hw08")
 
 pluginManagement {
     val jgitver: String by settings
