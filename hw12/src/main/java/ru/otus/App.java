@@ -44,18 +44,8 @@ public class App {
 
     public static void main(String[] args) throws Exception {
         var configuration = new Configuration().configure(HIBERNATE_CFG_FILE);
-
-        var dbUrl = configuration.getProperty("hibernate.connection.url");
-        var dbUserName = configuration.getProperty("hibernate.connection.username");
-        var dbPassword = configuration.getProperty("hibernate.connection.password");
-
-        var migrations = new MigrationsExecutorFlyway(dbUrl, dbUserName, dbPassword);
-        migrations.executeMigrations();
-
-        var sessionFactory = HibernateUtils
-                .buildSessionFactory(configuration,
-                        Client.class, Address.class, Phone.class, User.class);
-        TransactionManager transactionManager = new TransactionManagerHibernate(sessionFactory);
+        executeMigration(configuration);
+        TransactionManager transactionManager = createTransactionManager(configuration);
 
         DataTemplate<User> userDataTemplate = new DataTemplateHibernate<>(User.class);
         UserDao userDao = new DbUserDao(transactionManager, userDataTemplate);
@@ -72,5 +62,19 @@ public class App {
 
         clientsWebServer.start();
         clientsWebServer.join();
+    }
+
+    private static TransactionManagerHibernate createTransactionManager(Configuration configuration) {
+        var sessionFactory = HibernateUtils.buildSessionFactory(configuration,
+                Client.class, Address.class, Phone.class, User.class);
+        return new TransactionManagerHibernate(sessionFactory);
+    }
+
+    public static void executeMigration(Configuration configuration) {
+        var dbUrl = configuration.getProperty("hibernate.connection.url");
+        var dbUserName = configuration.getProperty("hibernate.connection.username");
+        var dbPassword = configuration.getProperty("hibernate.connection.password");
+        var migrations = new MigrationsExecutorFlyway(dbUrl, dbUserName, dbPassword);
+        migrations.executeMigrations();
     }
 }

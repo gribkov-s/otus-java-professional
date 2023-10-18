@@ -14,15 +14,11 @@ public class DbUserDao implements UserDao {
 
     private final DataTemplate<User> userDataTemplate;
     private final TransactionManager transactionManager;
-    private final String loginFieldName;
+
 
     public DbUserDao(TransactionManager transactionManager, DataTemplate<User> userDataTemplate) throws NoSuchFieldException {
         this.transactionManager = transactionManager;
         this.userDataTemplate = userDataTemplate;
-        this.loginFieldName = User.class
-                .getDeclaredField("login")
-                .getAnnotation(Column.class)
-                .name();
     }
 
     @Override

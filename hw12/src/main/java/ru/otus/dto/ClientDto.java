@@ -21,14 +21,14 @@ public class ClientDto {
 
     public ClientDto(Client client) {
         Client clientClone = client.clone();
-        String name = clientClone.getName();
-        String address = clientClone.getAddress().getStreet();
+        String nameDto = clientClone.getName();
+        String addressDto = clientClone.getAddress().getStreet();
         List<Phone> phonesEntity = clientClone.getPhones();
-        String phones = phonesEntity.stream()
+        String phonesDto = phonesEntity.stream()
                 .map(ph -> ph.getNumber())
                 .collect(Collectors.joining(", "));
-        this.name = name;
-        this.address = address;
-        this.phones = phones;
+        this.name = nameDto;
+        this.address = addressDto;
+        this.phones = phonesDto;
     }
 }
