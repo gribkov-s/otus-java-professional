@@ -20,6 +20,52 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
         processConfig(initialConfigClass);
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public <C> C getAppComponent(Class<C> componentClass) {
+        Object[] componentInterfaces = componentClass.isInterface() ?
+                new Object[]{componentClass} :
+                Arrays.stream(componentClass.getInterfaces()).toArray();
+
+        List<Object> components = appComponents.stream()
+                .filter(o -> Arrays.equals(o.getClass().getInterfaces(), componentInterfaces))
+                .toList();
+
+        int componentsNum = components.size();
+
+        if (componentsNum > 1) throw new RuntimeException(
+                String.format(
+                        "Container contains more than expected components: %s.",
+                        componentClass.getSimpleName()));
+
+        if (componentsNum == 0) {
+            throw new RuntimeException(
+                    String.format(
+                            "Can not get %s from container %s.",
+                            componentClass.getSimpleName(),
+                            this.getClass().getSimpleName()));
+        } else {
+            return (C) components.get(0);
+        }
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <C> C getAppComponent(String componentName) {
+
+        boolean componentIsExists = appComponentsByName.containsKey(componentName);
+
+        if (!componentIsExists) {
+            throw new RuntimeException(
+                    String.format(
+                            "Can not get %s from container %s.",
+                            componentName,
+                            this.getClass().getSimpleName()));
+        } else {
+            return (C) this.appComponentsByName.get(componentName);
+        }
+    }
+
     private static class MethodComparator implements Comparator<Method> {
         public int compare(Method m1, Method m2) {
             var m1o = Integer.valueOf(m1.getAnnotation(AppComponent.class).order());
@@ -88,51 +134,5 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
                         "App configuration %s contains more than expected components: %s.",
                         containerName,
                         componentName));
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <C> C getAppComponent(Class<C> componentClass) {
-        Object[] componentInterfaces = componentClass.isInterface() ?
-                new Object[]{componentClass} :
-                Arrays.stream(componentClass.getInterfaces()).toArray();
-
-        List<Object> components = appComponents.stream()
-                .filter(o -> Arrays.equals(o.getClass().getInterfaces(), componentInterfaces))
-                .toList();
-
-        int componentsNum = components.size();
-
-        if (componentsNum > 1) throw new RuntimeException(
-                String.format(
-                        "Container contains more than expected components: %s.",
-                        componentClass.getSimpleName()));
-
-        if (componentsNum == 0) {
-            throw new RuntimeException(
-                    String.format(
-                            "Can not get %s from container %s.",
-                            componentClass.getSimpleName(),
-                            this.getClass().getSimpleName()));
-        } else {
-            return (C) components.get(0);
-        }
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public <C> C getAppComponent(String componentName) {
-
-        boolean componentIsExists = appComponentsByName.containsKey(componentName);
-
-        if (!componentIsExists) {
-            throw new RuntimeException(
-                    String.format(
-                            "Can not get %s from container %s.",
-                            componentName,
-                            this.getClass().getSimpleName()));
-        } else {
-            return (C) this.appComponentsByName.get(componentName);
-        }
     }
 }
