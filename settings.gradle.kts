@@ -10,6 +10,7 @@ include("hw09")
 include("hw10")
 include("hw12")
 include("hw13")
+include("hw14")
 
 pluginManagement {
     val jgitver: String by settings
