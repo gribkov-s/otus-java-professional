@@ -28,7 +28,9 @@ public class App {
         while (!Thread.currentThread().isInterrupted()) {
             lock.lock();
             try {
-                while (wasUpdated) write.await();
+                while (wasUpdated) {
+                    write.await();
+                }
                 switch (sharedCounter) {
                     case 10 -> step = -1;
                     case 1 -> step = 1;
@@ -50,7 +52,9 @@ public class App {
         while (!Thread.currentThread().isInterrupted()) {
             lock.lock();
             try {
-                while (!wasUpdated) read.await();
+                while (!wasUpdated) {
+                    read.await();
+                }
                 logger.info(String.valueOf(this.sharedCounter));
                 wasUpdated = false;
                 write.signal();
