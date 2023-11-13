@@ -41,8 +41,10 @@ public class SensorDataProcessorBuffered implements SensorDataProcessor {
         try {
             ArrayList<SensorData> data = new ArrayList<>();
             dataBuffer.drainTo(data);
-            data.sort(new SensorDataComparator());
-            writer.writeBufferedData(data);
+            if (!data.isEmpty()) {
+                data.sort(new SensorDataComparator());
+                writer.writeBufferedData(data);
+            }
         } catch (Exception e) {
             log.error("Ошибка в процессе записи буфера", e);
         }
