@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package ru.otus;
+
+option java_multiple_files = true;
+
+message NumberMessage {
+    int64 num = 1;
+}
+
+message NumRangeMessage {
+    int64 from = 1;
+    int64 to = 2;
+}
+
+service RemoteNumbersService {
+    rpc getByRange(NumRangeMessage) returns (stream NumberMessage);
+}
