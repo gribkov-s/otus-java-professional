@@ -8,12 +8,15 @@ include("hw06")
 include("hw08")
 include("hw09")
 include("hw10")
+include("hw11")
 include("hw12")
 include("hw13")
 include("hw14")
 include("hw15")
 include("hw16")
 include("hw17")
+include("hw18:client-service")
+include("hw18:datastore-service")
 
 pluginManagement {
     val jgitver: String by settings
@@ -36,4 +39,3 @@ pluginManagement {
         id("com.diffplug.spotless") version spotless
     }
 }
-include("hw11")
