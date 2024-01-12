@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    input, button, select {
+        margin: 2px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Message template</title>
+    <script>
+
+        var types = ["text", "number", "checkbox", "datetime-local"];
+
+        async function onLoad() {
+            var fields = document.getElementById("messageFields");
+            fields.oldHTML=fields.innerHTML;
+        };
+
+        async function addField() {
+            var fields = document.getElementById("messageFields");
+
+            var fieldForm = document.createElement("form");
+            fieldForm.name = "field";
+            fields.appendChild(fieldForm);
+
+            var nameInput = document.createElement("input");
+            nameInput.type = "text";
+            fieldForm.appendChild(nameInput);
+
+            var typeSelect = document.createElement("select");
+            for (const type of types) {
+                addNewOption(typeSelect, type);
+            }
+            fieldForm.appendChild(typeSelect);
+
+            var deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.onclick = async function () {
+                deleteButton.closest("form").remove();
+            };
+            fieldForm.appendChild(deleteButton);
+        };
+
+        async function reset() {
+            var fields = document.getElementById("messageFields");
+            fields.innerHTML=fields.oldHTML;
+        };
+
+        async function save() {
+            var fields = new Array();
+            var form = document.getElementById("messageFields");
+            var forms = document.getElementsByName("field");
+
+            for (let i = 0; i < forms.length; i++) {
+                var field = {
+                    name: forms[i].elements[0].value,
+                    type: forms[i].elements[1].value
+                };
+                fields[fields.length] = field;
+            }
+
+            var template = {
+                id: document.getElementById("id").value,
+                fields: fields
+            };
+
+            var templateBody = JSON.stringify(template);
+            document.write(templateBody);
+        };
+
+        function addNewOption(select, text) {
+            var option = document.createElement("option");
+            option.text = text;
+            select.add(option);
+        };
+    </script>
+</head>
+<body onload="onLoad()">
+    <h4>Message template</h4>
+    <form id = "messageTemplateId">
+        <label for="id">Message template ID</label><br>
+        <input type="text" id="id" name="id" style="width:164px"><br>
+    </form>
+    <br>
+    <form id = "messageFields">Message fields</form>
+    <br>
+    <button onclick="addField()" style="width:107px">Add field</button>
+    <button onclick="reset()" style="width:107px">Reset</button>
+    <button onclick="save()" style="width:107px">Save</button>
+    <br>
+</body>
+</html>
