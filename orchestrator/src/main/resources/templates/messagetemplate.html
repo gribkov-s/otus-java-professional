@@ -48,25 +48,31 @@
         };
 
         async function save() {
-            var fields = new Array();
-            var form = document.getElementById("messageFields");
-            var forms = document.getElementsByName("field");
+            var id = document.getElementById("id").value;
 
-            for (let i = 0; i < forms.length; i++) {
-                var field = {
-                    name: forms[i].elements[0].value,
-                    type: forms[i].elements[1].value
+            if (id !== "") {
+                var fields = new Array();
+                var form = document.getElementById("messageFields");
+                var forms = document.getElementsByName("field");
+
+                for (let i = 0; i < forms.length; i++) {
+
+                    var field = {
+                        name: forms[i].elements[0].value,
+                        type: forms[i].elements[1].value
+                    };
+
+                    fields[fields.length] = field;
+                }
+
+                var template = {
+                    id: id,
+                    fields: fields
                 };
-                fields[fields.length] = field;
+
+                var templateBody = JSON.stringify(template);
+                document.write(templateBody);
             }
-
-            var template = {
-                id: document.getElementById("id").value,
-                fields: fields
-            };
-
-            var templateBody = JSON.stringify(template);
-            document.write(templateBody);
         };
 
         function addNewOption(select, text) {
