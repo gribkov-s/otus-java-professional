@@ -5,35 +5,38 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.PersistenceCreator;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
-import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.*;
 import com.google.gson.JsonObject;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table("message")
+@Entity
+@Table(name = "message")
 public class Message implements Persistable<String> {
 
     @Id
+    @Column(name = "id")
     private String id;
 
+    @JoinColumn(name = "template", nullable = false)
     @Nonnull
-    @MappedCollection(idColumn = "template")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private MessageTemplate template;
 
+    @Column(name = "content")
     @Nonnull
     private String content;
 
     @Transient
     private boolean isNew;
 
-    @PersistenceCreator
     public Message(String id, MessageTemplate template, String content) {
         this.id = id;
         this.template = template;

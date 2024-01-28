@@ -32,7 +32,7 @@ public class DbMessageDao implements MessageDao {
         return transactionManager.doInTransaction(() -> {
             message.setNew(true);
             var savedMessage = messageRepository.save(message);
-            log.info("Saved message template: {}", message.getId());
+            log.info("Saved message: {}", message.getId());
             return savedMessage;
         });
     }
@@ -42,7 +42,7 @@ public class DbMessageDao implements MessageDao {
         return transactionManager.doInTransaction(() -> {
             message.setNew(false);
             Message savedMessage = messageRepository.save(message);
-            log.info("Updated message template: {}", message.getId());
+            log.info("Updated message: {}", message.getId());
             return savedMessage;
         });
     }
@@ -51,7 +51,7 @@ public class DbMessageDao implements MessageDao {
     public String delete(String id) {
         return transactionManager.doInTransaction(() -> {
             messageRepository.deleteById(id);
-            log.info("Deleted message template: {}", id);
+            log.info("Deleted message: {}", id);
             return id;
         });
     }

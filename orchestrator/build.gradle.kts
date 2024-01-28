@@ -18,7 +18,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-test")
-    implementation ("org.springframework.boot:spring-boot-starter-data-jdbc")
+    //implementation ("org.springframework.boot:spring-boot-starter-data-jdbc")
+    implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
 
     implementation ("ch.qos.logback:logback-classic")
     implementation ("org.flywaydb:flyway-core")

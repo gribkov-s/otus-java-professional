@@ -1,7 +1,7 @@
 package ru.otus.db.sessionmanager;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class TransactionManagerSpring implements TransactionManager {
