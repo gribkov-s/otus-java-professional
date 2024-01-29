@@ -30,7 +30,8 @@ public class DbMessageTemplateDao implements MessageTemplateDao {
     @Override
     public MessageTemplate findById(String id) {
         return messageTemplateRepository.findById(id).orElseThrow(() ->
-                new RuntimeException(String.format("Message template with id: %s not found", id)));
+                new RuntimeException(
+                        String.format("Message template with id: %s not found", id)));
     }
 
     @Override
@@ -38,7 +39,7 @@ public class DbMessageTemplateDao implements MessageTemplateDao {
         return transactionManager.doInTransaction(() -> {
             messageTemplate.setNew(true);
             MessageTemplate savedTemplate = messageTemplateRepository.save(messageTemplate);
-            log.info("Saved message template: {}", messageTemplate.getId());
+            log.info("Saved message template: {}", savedTemplate.getId());
             return savedTemplate;
         });
     }

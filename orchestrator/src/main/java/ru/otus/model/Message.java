@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.domain.Persistable;
 import jakarta.persistence.*;
@@ -32,6 +34,7 @@ public class Message implements Persistable<String> {
 
     @Column(name = "content")
     @Nonnull
+    @JdbcTypeCode(SqlTypes.JSON)
     private String content;
 
     @Transient
@@ -52,5 +55,10 @@ public class Message implements Persistable<String> {
     @Override
     public boolean isNew() {
         return this.isNew;
+    }
+
+    public Message updateContent(MessageContent messageContent) {
+        var newContent = messageContent.getContent();
+        return new Message(this.getId(), this.getTemplate(), newContent);
     }
 }

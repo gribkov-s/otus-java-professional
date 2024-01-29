@@ -2,6 +2,8 @@ package ru.otus.model;
 
 import jakarta.annotation.Nonnull;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.PersistenceCreator;
 import jakarta.persistence.*;
 import com.google.gson.JsonObject;
@@ -21,6 +23,7 @@ public class MessageTemplate implements Persistable<String> {
 
     @Column(name = "fields")
     @Nonnull
+    @JdbcTypeCode(SqlTypes.JSON)
     private String fields;
 
     @Transient

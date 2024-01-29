@@ -1,5 +1,6 @@
 package ru.otus.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.dao.MessageTemplateDao;
@@ -23,26 +24,30 @@ public class MessageTemplateRestController {
     }
 
     @GetMapping("/ids")
-    public List<String> getMessageTemplatesIds() {
-        return messageTemplateDao.findAllIds();
+    public ResponseEntity<List<String>> getMessageTemplatesIds() {
+        return ResponseEntity.ok(
+                messageTemplateDao.findAllIds());
     }
 
     @GetMapping("/{id}")
-    public MessageTemplateDto getMessageTemplate(@PathVariable String id) {
+    public ResponseEntity<MessageTemplateDto> getMessageTemplate(@PathVariable String id) {
         MessageTemplate messageTemplate = messageTemplateDao.findById(id);
-        return messageTemplateMapper.toDto(messageTemplate);
+        return ResponseEntity.ok(
+                messageTemplateMapper.toDto(messageTemplate));
     }
 
     @PostMapping
-    public MessageTemplateDto saveMessageTemplate(Model model,
+    public ResponseEntity<MessageTemplateDto> saveMessageTemplate(Model model,
                                                   @RequestBody MessageTemplateDto messageTemplateDto) {
         MessageTemplate messageTemplate = messageTemplateMapper.toModel(messageTemplateDto);
         MessageTemplate savedMessageTemplate = messageTemplateDao.save(messageTemplate);
-        return messageTemplateMapper.toDto(savedMessageTemplate);
+        return ResponseEntity.ok(
+                messageTemplateMapper.toDto(savedMessageTemplate));
     }
 
     @DeleteMapping("/{id}")
-    public String deleteMessageTemplate(@PathVariable String id) {
-        return messageTemplateDao.delete(id);
+    public ResponseEntity<String> deleteMessageTemplate(@PathVariable String id) {
+        return ResponseEntity.ok(
+                messageTemplateDao.delete(id));
     }
 }

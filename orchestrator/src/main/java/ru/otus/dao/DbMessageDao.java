@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.otus.db.repository.MessageRepository;
 import ru.otus.db.sessionmanager.TransactionManager;
 import ru.otus.model.Message;
+import ru.otus.model.MessageContent;
 
 @Service
 public class DbMessageDao implements MessageDao {
@@ -24,7 +25,8 @@ public class DbMessageDao implements MessageDao {
     @Override
     public Message findById(String id) {
         return messageRepository.findById(id).orElseThrow(() ->
-                new RuntimeException(String.format("Message with id: %s not found", id)));
+                new RuntimeException(
+                        String.format("Message with id: %s not found", id)));
     }
 
     @Override
@@ -32,17 +34,23 @@ public class DbMessageDao implements MessageDao {
         return transactionManager.doInTransaction(() -> {
             message.setNew(true);
             var savedMessage = messageRepository.save(message);
-            log.info("Saved message: {}", message.getId());
+            log.info("Saved message: {}", savedMessage.getId());
             return savedMessage;
         });
     }
 
     @Override
-    public Message update(Message message) {
+    public Message updateContent(MessageContent messageContent) {
         return transactionManager.doInTransaction(() -> {
-            message.setNew(false);
-            Message savedMessage = messageRepository.save(message);
-            log.info("Updated message: {}", message.getId());
+            String messageId = messageContent.getMessageId();
+            Message message = messageRepository.findById(messageId)
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    String.format("Message with id: %s not found", messageId)));
+            Message updatedMessage = message.updateContent(messageContent);
+            updatedMessage.setNew(false);
+            Message savedMessage = messageRepository.save(updatedMessage);
+            log.info("Updated message: {}", savedMessage.getId());
             return savedMessage;
         });
     }
