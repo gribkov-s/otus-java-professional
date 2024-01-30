@@ -1,5 +1,8 @@
 package ru.otus.model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +12,14 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.domain.Persistable;
 import jakarta.persistence.*;
 import com.google.gson.JsonObject;
+
+import java.util.HashMap;
 
 @Getter
 @Setter
@@ -35,12 +42,12 @@ public class Message implements Persistable<String> {
     @Column(name = "content")
     @Nonnull
     @JdbcTypeCode(SqlTypes.JSON)
-    private String content;
+    private HashMap<String, Object> content;
 
     @Transient
     private boolean isNew;
 
-    public Message(String id, MessageTemplate template, String content) {
+    public Message(String id, MessageTemplate template, HashMap<String, Object> content) {
         this.id = id;
         this.template = template;
         this.content = content;
@@ -57,8 +64,12 @@ public class Message implements Persistable<String> {
         return this.isNew;
     }
 
-    public Message updateContent(MessageContent messageContent) {
-        var newContent = messageContent.getContent();
+    public Message updateContent(MessageContent messageContent) throws JSONException {
+        HashMap<String, Object> newContent = messageContent.getContent();
         return new Message(this.getId(), this.getTemplate(), newContent);
     }
+
+    Gson gson = new Gson();
+    JsonElement jsonElement = gson.toJsonTree(map);
+    MyPojo pojo = gson.fromJson(jsonElement, MyPojo.class);
 }

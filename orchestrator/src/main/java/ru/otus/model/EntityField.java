@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashMap;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MessageContent  {
-    private String messageId;
-    private HashMap<String, Object> content;
+public class EntityField {
+    private String name;
+    private String type;
 }

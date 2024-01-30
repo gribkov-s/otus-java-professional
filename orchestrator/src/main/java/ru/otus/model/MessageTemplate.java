@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import com.google.gson.JsonObject;
 import org.springframework.data.domain.Persistable;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,12 +26,12 @@ public class MessageTemplate implements Persistable<String> {
     @Column(name = "fields")
     @Nonnull
     @JdbcTypeCode(SqlTypes.JSON)
-    private String fields;
+    private Set<EntityField> fields;
 
     @Transient
     private boolean isNew;
 
-    public MessageTemplate(String id, String fields) {
+    public MessageTemplate(String id, Set<EntityField> fields) {
         this.id = id;
         this.fields = fields;
         this.isNew = false;
