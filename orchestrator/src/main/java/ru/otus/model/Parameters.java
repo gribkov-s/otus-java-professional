@@ -1,6 +1,7 @@
 package ru.otus.model;
 
 import jakarta.annotation.Nonnull;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.domain.Persistable;
-import jakarta.persistence.*;
 import java.util.HashMap;
 
 @Getter
@@ -18,8 +18,8 @@ import java.util.HashMap;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "message")
-public class Message implements Persistable<String> {
+@Table(name = "parameters")
+public class Parameters implements Persistable<String> {
 
     @Id
     @Column(name = "id")
@@ -29,7 +29,7 @@ public class Message implements Persistable<String> {
     @Nonnull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private MessageTemplate template;
+    private ParametersTemplate template;
 
     @Column(name = "content")
     @Nonnull
@@ -39,7 +39,7 @@ public class Message implements Persistable<String> {
     @Transient
     private boolean isNew;
 
-    public Message(String id, MessageTemplate template, HashMap<String, Object> content) {
+    public Parameters(String id, ParametersTemplate template, HashMap<String, Object> content) {
         this.id = id;
         this.template = template;
         this.content = content;
@@ -56,8 +56,8 @@ public class Message implements Persistable<String> {
         return this.isNew;
     }
 
-    public Message updateContent(MessageContent messageContent) {
-        HashMap<String, Object> newContent = messageContent.getContent();
-        return new Message(this.getId(), this.getTemplate(), newContent);
+    public Parameters updateContent(ParametersContent parametersContent) {
+        HashMap<String, Object> newContent = parametersContent.getContent();
+        return new Parameters(this.getId(), this.getTemplate(), newContent);
     }
 }

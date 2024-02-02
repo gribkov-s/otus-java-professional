@@ -24,6 +24,4 @@ dependencies {
     implementation ("org.flywaydb:flyway-core")
     implementation ("org.postgresql:postgresql")
     implementation ("com.google.code.findbugs:jsr305")
-
-    implementation("com.google.code.gson:gson")
 }

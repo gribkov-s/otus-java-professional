@@ -3,14 +3,15 @@ package ru.otus.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import ru.otus.model.EntityField;
 
-import java.util.Set;
+import java.util.HashMap;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class MessageTemplateDto {
+public class ParametersDto {
     private String id;
-    private Set<EntityField> fields;
+    private ParametersTemplateDto template;
+    private HashMap<String, Object> content;
+
 }

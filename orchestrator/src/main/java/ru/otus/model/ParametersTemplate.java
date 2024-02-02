@@ -1,11 +1,13 @@
 package ru.otus.model;
 
 import jakarta.annotation.Nonnull;
-import lombok.*;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.annotation.PersistenceCreator;
-import jakarta.persistence.*;
 import org.springframework.data.domain.Persistable;
 
 import java.util.Set;
@@ -15,8 +17,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "message_template")
-public class MessageTemplate implements Persistable<String> {
+@Table(name = "parameters_template")
+public class ParametersTemplate implements Persistable<String> {
 
     @Id
     @Column(name = "id")
@@ -30,7 +32,7 @@ public class MessageTemplate implements Persistable<String> {
     @Transient
     private boolean isNew;
 
-    public MessageTemplate(String id, Set<EntityField> fields) {
+    public ParametersTemplate(String id, Set<EntityField> fields) {
         this.id = id;
         this.fields = fields;
         this.isNew = false;

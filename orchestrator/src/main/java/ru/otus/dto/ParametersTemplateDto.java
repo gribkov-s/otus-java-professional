@@ -10,7 +10,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class MessageTemplateDto {
+public class ParametersTemplateDto {
     private String id;
     private Set<EntityField> fields;
 }
