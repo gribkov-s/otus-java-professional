@@ -24,4 +24,9 @@ dependencies {
     implementation ("org.flywaydb:flyway-core")
     implementation ("org.postgresql:postgresql")
     implementation ("com.google.code.findbugs:jsr305")
+
+    implementation ("io.netty:netty-transport")
+    implementation ("io.netty:netty-codec-http")
+
+    implementation("org.asynchttpclient:async-http-client")
 }

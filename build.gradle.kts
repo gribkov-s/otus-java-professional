@@ -65,6 +65,8 @@ allprojects {
             dependency("org.mapstruct:mapstruct:$mapstruct")
             dependency("org.mapstruct:mapstruct-processor:$mapstruct")
             dependency("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
+            dependency("org.asynchttpclient:async-http-client:2.2.0")
         }
     }
 
