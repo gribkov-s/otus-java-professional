@@ -38,3 +38,12 @@ create table "connection"
     content jsonb  not null
 );
 
+create table task_template
+(
+    id   varchar(100)  not null primary key,
+    task_type varchar(100),
+    "connection" varchar(100)  not null  references "connection"(id),
+    parameters_template varchar(100)  references parameters_template(id),
+    message_template varchar(100)  references message_template(id)
+);
+
