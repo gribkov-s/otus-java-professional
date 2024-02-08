@@ -70,9 +70,14 @@ public class DbTaskDao implements TaskDao {
                     .orElseThrow(() ->
                             new RuntimeException(
                                     String.format("Task with id: %s not found", taskId)));
-            Task updatedTask = task.updateNext(next);
-            updatedTask.setNew(false);
-            Task savedTask = taskRepository.save(updatedTask);
+            String nextId = next.getNextId();
+            Task taskNext = taskRepository.findById(nextId)
+                    .orElseThrow(() ->
+                            new RuntimeException(
+                                    String.format("Task for next with id: %s not found", nextId)));
+            task.setNext(taskNext);
+            task.setNew(false);
+            Task savedTask = taskRepository.save(task);
             log.info("Updated task: {} - next", savedTask.getId());
             return savedTask;
         });

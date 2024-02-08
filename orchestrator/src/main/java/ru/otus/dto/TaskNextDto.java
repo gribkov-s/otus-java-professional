@@ -11,5 +11,5 @@ import java.util.Optional;
 @NoArgsConstructor
 public class TaskNextDto {
     private String taskId;
-    private TaskDto next;
+    private String nextId;
 }

@@ -92,24 +92,6 @@ public class Task implements Persistable<String>, Delayed {
         this.timestamp = System.currentTimeMillis() + rangeSec * 1000;
     }
 
-    public Task(String id,
-                TaskType taskType,
-                Connection connection,
-                Parameters parameters,
-                Message message,
-                Long rangeSec,
-                Task next) {
-        this.id = id;
-        this.taskType = taskType;
-        this.connection = connection;
-        this.parameters = parameters;
-        this.message = message;
-        this.rangeSec = rangeSec;
-        this.next = next;
-        this.isNew = false;
-        this.timestamp = System.currentTimeMillis() + rangeSec * 1000;
-    }
-
     public Optional<Task> getNextOpt() {
         return Optional.ofNullable(this.next);
     }
@@ -137,18 +119,6 @@ public class Task implements Persistable<String>, Delayed {
                         this.next,
                         this.isNew,
                         this.timestamp);
-    }
-
-    public Task updateNext(TaskNext next) {
-        return new Task(this.id,
-                        this.taskType,
-                        this.connection,
-                        this.parameters,
-                        this.message,
-                        this.rangeSec,
-                        next.getNext(),
-                        this.isNew,
-                        System.currentTimeMillis() + rangeSec * 1000);
     }
 
     @Override

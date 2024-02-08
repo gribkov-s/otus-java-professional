@@ -60,7 +60,7 @@ public class TaskRestController {
                 taskMapper.toDto(updatedTask));
     }
 
-    @PatchMapping("/update-next")
+    @PatchMapping("/set-next-task")
     public ResponseEntity<TaskDto> updateNext(Model model,
                                               @RequestBody TaskNextDto taskNextDto) {
         TaskNext taskNext = taskNextMapper.toModel(taskNextDto);

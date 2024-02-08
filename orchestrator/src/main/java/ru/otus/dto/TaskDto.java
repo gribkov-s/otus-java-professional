@@ -23,5 +23,5 @@ public class TaskDto implements Serializable {
     private ParametersDto parameters;
     private MessageDto message;
     private Long rangeSec;
-    private TaskDto next;
+    private String nextId;
 }

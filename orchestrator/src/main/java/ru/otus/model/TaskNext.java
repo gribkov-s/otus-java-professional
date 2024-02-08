@@ -11,5 +11,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TaskNext {
     private String taskId;
-    private Task next;
+    private String nextId;
 }
