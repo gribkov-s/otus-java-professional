@@ -64,23 +64,27 @@ public class DbTaskDao implements TaskDao {
 
     @Override
     public Task updateNext(TaskNext next) {
-        return transactionManager.doInTransaction(() -> {
-            String taskId = next.getTaskId();
-            Task task = taskRepository.findById(taskId)
-                    .orElseThrow(() ->
-                            new RuntimeException(
-                                    String.format("Task with id: %s not found", taskId)));
-            String nextId = next.getNextId();
-            Task taskNext = taskRepository.findById(nextId)
-                    .orElseThrow(() ->
-                            new RuntimeException(
-                                    String.format("Task for next with id: %s not found", nextId)));
-            task.setNext(taskNext);
-            task.setNew(false);
-            Task savedTask = taskRepository.save(task);
-            log.info("Updated task: {} - next", savedTask.getId());
-            return savedTask;
-        });
+        if (next.getTaskId().equals(next.getNextId())) {
+            throw new RuntimeException("Task cannot be linked with itself.");
+        } else {
+            return transactionManager.doInTransaction(() -> {
+                String taskId = next.getTaskId();
+                Task task = taskRepository.findById(taskId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        String.format("Task with id: %s not found", taskId)));
+                String nextId = next.getNextId();
+                Task taskNext = taskRepository.findById(nextId)
+                        .orElseThrow(() ->
+                                new RuntimeException(
+                                        String.format("Task for next with id: %s not found", nextId)));
+                task.setNext(taskNext);
+                task.setNew(false);
+                Task savedTask = taskRepository.save(task);
+                log.info("Updated task: {} - next task: {}", savedTask.getId(), next.getNextId());
+                return savedTask;
+            });
+        }
     }
 
     @Override

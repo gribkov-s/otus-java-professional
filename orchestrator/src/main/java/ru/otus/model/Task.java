@@ -97,20 +97,16 @@ public class Task implements Persistable<String>, Delayed {
     }
 
     public Optional<Task> getNextOpt() {
-        return Optional.ofNullable(this.next);
-    }
-
-    public Task updateTimestamp() {
-        long currentTime = System.currentTimeMillis() + rangeSec * 1000;
-        return new Task(this.id,
-                        this.taskType,
-                        this.connection,
-                        this.parameters,
-                        this.message,
-                        this.rangeSec,
-                        this.next,
-                        this.isNew,
-                        currentTime);
+        if (next != null) {
+            return Optional.of(this.next.updateTimestamp());
+        }
+        else {
+            if (rangeSec > 0) {
+                return Optional.of(this.updateTimestamp());
+            } else {
+                return Optional.empty();
+            }
+        }
     }
 
     public Task updateRange(TaskRange taskRange) {
@@ -134,5 +130,18 @@ public class Task implements Persistable<String>, Delayed {
     @Override
     public int compareTo(Delayed o) {
         return Long.compare(this.timestamp, ((DataDelayed) o).getTimestamp());
+    }
+
+    private Task updateTimestamp() {
+        long currentTime = System.currentTimeMillis() + rangeSec * 1000;
+        return new Task(this.id,
+                        this.taskType,
+                        this.connection,
+                        this.parameters,
+                        this.message,
+                        this.rangeSec,
+                        this.next,
+                        this.isNew,
+                        currentTime);
     }
 }
