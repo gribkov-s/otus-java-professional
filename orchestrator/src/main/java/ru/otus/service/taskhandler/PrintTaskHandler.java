@@ -17,11 +17,11 @@ public class PrintTaskHandler implements TaskHandler {
 
     ExecutorService handleThreadPool =  Executors.newFixedThreadPool(1);
 
-    private final TaskChannel nextTaskChannel;
+    private final TaskChannel handledTaskChannel;
 
     @Autowired
-    public PrintTaskHandler(TaskChannel nextTaskChannel) {
-        this.nextTaskChannel = nextTaskChannel;
+    public PrintTaskHandler(TaskChannel handledTaskChannel) {
+        this.handledTaskChannel = handledTaskChannel;
     }
 
     @Override
@@ -34,6 +34,6 @@ public class PrintTaskHandler implements TaskHandler {
                 System.currentTimeMillis(),
                 task.getId(),
                 this.getClass().getSimpleName());
-        nextTaskChannel.push(task);
+        handledTaskChannel.push(task);
     }
 }

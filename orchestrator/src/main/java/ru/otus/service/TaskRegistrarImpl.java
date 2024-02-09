@@ -14,20 +14,23 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class TaskRegistrarImpl implements TaskRegistrar {
-    private static final Logger log = LoggerFactory.getLogger(TaskExchangeImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(TaskRegistrarImpl.class);
 
     private final Map<String, Long> tasks = new ConcurrentHashMap<>();
 
+    private final TaskChannel handledTaskChannel;
     private final TaskChannel nextTaskChannel;
 
     @Autowired
-    public TaskRegistrarImpl(TaskChannel nextTaskChannel) {
+    public TaskRegistrarImpl(TaskChannel handledTaskChannel,
+                             TaskChannel nextTaskChannel) {
+        this.handledTaskChannel = handledTaskChannel;
         this.nextTaskChannel = nextTaskChannel;
     }
 
     @Override
     public void register(Task task) {
-        tasks.putIfAbsent(task.getId(), 0L);
+        tasks.putIfAbsent(task.getId(), 1L);
         log.info("Task: {} was registered", task.getId());
     }
 
@@ -35,7 +38,7 @@ public class TaskRegistrarImpl implements TaskRegistrar {
     public void unregister(String taskId) {
         Long result = tasks.remove(taskId);
         if (result == null) {
-            log.info("Task: {} isn't registered", taskId);
+            throw new RuntimeException(String.format("Task %s isn't registered", taskId));
         } else {
             log.info("Task: {} was unregistered", taskId);
         }
@@ -56,14 +59,25 @@ public class TaskRegistrarImpl implements TaskRegistrar {
 
     @Scheduled(fixedDelay=100)
     private void check() {
-        Task task = nextTaskChannel.take();
+        Task task = handledTaskChannel.take();
         if (task != null) {
             String taskId = task.getId();
             Long result = tasks.computeIfPresent(taskId, (k, v) -> v + 1);
             if (result != null) {
-                log.info("Task {} was sent to {} cycle", taskId, result);
+                if (task.isRepetitive()) {
+                    task.getNextOpt().map(nextTaskChannel::push);
+                    log.info("Task {} was sent to {} cycle", taskId, result);
+                } else {
+                    var nextOpt = task.getNextOpt();
+                    nextOpt.ifPresent(next -> {
+                        nextTaskChannel.push(next);
+                        log.info("Next task {} was sent", next.getId());
+                    });
+                    tasks.remove(taskId);
+                    log.info("Task {} was finished", taskId);
+                }
             } else {
-                log.info("Task {} was cancelled", taskId);
+                log.info("Task {} was stopped", taskId);
             }
         }
     }

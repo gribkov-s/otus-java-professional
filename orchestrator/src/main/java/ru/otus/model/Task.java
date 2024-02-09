@@ -55,7 +55,7 @@ public class Task implements Persistable<String>, Delayed {
     private Long rangeSec;
 
     @JoinColumn(name = "next", nullable = true)
-    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Task next;
 
@@ -97,7 +97,7 @@ public class Task implements Persistable<String>, Delayed {
     }
 
     public Optional<Task> getNextOpt() {
-        if (next != null) {
+        if (this.next != null) {
             return Optional.of(this.next.updateTimestamp());
         }
         else {
@@ -107,6 +107,10 @@ public class Task implements Persistable<String>, Delayed {
                 return Optional.empty();
             }
         }
+    }
+
+    public boolean isRepetitive() {
+        return rangeSec > 0;
     }
 
     public Task updateRange(TaskRange taskRange) {
@@ -132,16 +136,17 @@ public class Task implements Persistable<String>, Delayed {
         return Long.compare(this.timestamp, ((DataDelayed) o).getTimestamp());
     }
 
+
     private Task updateTimestamp() {
-        long currentTime = System.currentTimeMillis() + rangeSec * 1000;
-        return new Task(this.id,
-                        this.taskType,
-                        this.connection,
-                        this.parameters,
-                        this.message,
-                        this.rangeSec,
-                        this.next,
-                        this.isNew,
+        long currentTime = System.currentTimeMillis() + this.getRangeSec() * 1000;
+        return new Task(this.getId(),
+                        this.getTaskType(),
+                        this.getConnection(),
+                        this.getParameters(),
+                        this.getMessage(),
+                        this.getRangeSec(),
+                        this.getNext(),
+                        false,
                         currentTime);
     }
 }
