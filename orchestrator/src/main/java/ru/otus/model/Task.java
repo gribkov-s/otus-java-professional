@@ -92,11 +92,15 @@ public class Task implements Persistable<String>, Delayed {
         this.timestamp = System.currentTimeMillis() + rangeSec * 1000;
     }
 
+    public String getTaskTypeTitle() {
+        return taskType.getTitle();
+    }
+
     public Optional<Task> getNextOpt() {
         return Optional.ofNullable(this.next);
     }
 
-    Task updateTimestamp() {
+    public Task updateTimestamp() {
         long currentTime = System.currentTimeMillis() + rangeSec * 1000;
         return new Task(this.id,
                         this.taskType,
