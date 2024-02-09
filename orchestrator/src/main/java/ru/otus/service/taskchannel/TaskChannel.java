@@ -1,8 +1,6 @@
-package ru.otus.service;
+package ru.otus.service.taskchannel;
 
 import ru.otus.model.Task;
-
-import java.util.concurrent.TimeUnit;
 
 public interface TaskChannel {
     boolean push(Task task);

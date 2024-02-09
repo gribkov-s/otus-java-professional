@@ -1,18 +1,16 @@
-package ru.otus.service;
+package ru.otus.service.taskchannel;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.otus.model.Task;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Service
-public class TaskChannelImpl implements TaskChannel {
+@Qualifier("inputTaskChannel")
+public class InputTaskChannel implements TaskChannel {
 
-    private Queue<Task> taskQueue;
-
-    public TaskChannelImpl() {
-        this.taskQueue = new ConcurrentLinkedQueue<>();
-    }
+    private final Queue<Task> taskQueue = new ConcurrentLinkedQueue<>();
 
     @Override
     public boolean push(Task task) {

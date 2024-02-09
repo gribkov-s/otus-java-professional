@@ -4,10 +4,10 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.otus.model.Task;
+import ru.otus.service.taskchannel.TaskChannel;
 import ru.otus.service.taskhandler.TaskHandler;
 
 import java.util.Map;
@@ -20,11 +20,11 @@ public class TaskExchangeImpl implements TaskExchange {
     @Autowired
     private final Map<String, TaskHandler> handlers = new ConcurrentHashMap<>();
 
-    private final TaskChannel channel;
+    private final TaskChannel inputTaskChannel;
 
     @Autowired
-    public TaskExchangeImpl(TaskChannel channel) {
-        this.channel = channel;
+    public TaskExchangeImpl(TaskChannel inputTaskChannel) {
+        this.inputTaskChannel = inputTaskChannel;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class TaskExchangeImpl implements TaskExchange {
 
     @Scheduled(fixedDelay=100)
     private void exchange() {
-        Task task = channel.take();
+        Task task = inputTaskChannel.take();
         if (task != null) {
             String taskId = task.getId();
             String handlerId = task.getTaskTypeTitle();

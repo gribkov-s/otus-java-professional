@@ -5,27 +5,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.otus.model.Task;
-
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import ru.otus.service.taskchannel.TaskChannel;
 
 @Service
 public class TaskReceiverImpl implements TaskReceiver {
     private static final Logger log = LoggerFactory.getLogger(TaskReceiverImpl.class);
 
-    private final TaskChannel channel;
+    private final TaskChannel inputTaskChannel;
 
     @Autowired
-    public TaskReceiverImpl(TaskChannel channel) {
-        this.channel = channel;
+    public TaskReceiverImpl(TaskChannel inputTaskChannel) {
+        this.inputTaskChannel = inputTaskChannel;
     }
 
     @Override
     public void onReceive(Task task) {
-        channel.push(task);
+        inputTaskChannel.push(task);
         log.info("Received task: {}", task.getId());
     }
 }
