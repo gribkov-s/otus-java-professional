@@ -21,22 +21,22 @@
     <script>
 
         var tmpl1 = {
-            id: "a",
-            fields: [{name: "dsfd", type: "type"}, {name: "y", type: "number"}]
+            id: "service_1_put",
+            fields: [{name: "id", type: "text"}, {name: "amount", type: "number"}]
         };
         var tmpl2 = {
-            id: "b",
-            fields: [{name: "Az", type: "text"}, {name: "Dz", type: "text"}, {name: "Fz", type: "text"}, {name: "gz", type: "text"}, {name: "Hz", type: "text"}, {name: "Ez", type: "text"}, {name: "tz", type: "text"}, {name: "z", type: "text"}, {name: "z", type: "text"}, {name: "z", type: "text"}]
+            id: "service_1_post",
+            fields: [{name: "id", type: "text"}, {name: "type", type: "text"}, {name: "expression", type: "text"}, {name: "attempts", type: "number"}, {name: "date", type: "datetime-local"}]
         };
         var tmpl3 = {
-            id: "c",
-            fields: [{name: "f", type: "datetime-local"}, {name: "g", type: "checkbox"}]
+            id: "service_1_patch",
+            fields: [{name: "id", type: "text"}, {name: "blocked", type: "checkbox"}]
         };
 
         var messageTemplates = new Map();
-        messageTemplates.set("a", tmpl1);
-        messageTemplates.set("b", tmpl2);
-        messageTemplates.set("c", tmpl3);
+        messageTemplates.set("service_1_put", tmpl1);
+        messageTemplates.set("service_1_post", tmpl2);
+        messageTemplates.set("service_1_patch", tmpl3);
 
 
         async function getTemplates() {

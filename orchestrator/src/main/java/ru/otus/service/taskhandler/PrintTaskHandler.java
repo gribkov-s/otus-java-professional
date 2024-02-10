@@ -31,7 +31,7 @@ public class PrintTaskHandler implements TaskHandler {
 
     private void print(Task task) {
         log.info("{} Handled task: {} by handler: {}",
-                System.currentTimeMillis(),
+                System.currentTimeMillis() / 1000,
                 task.getId(),
                 this.getClass().getSimpleName());
         handledTaskChannel.push(task);

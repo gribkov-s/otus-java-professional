@@ -10,13 +10,16 @@ import ru.otus.model.Task;
 import ru.otus.service.taskchannel.TaskChannel;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Service
 public class TaskRegistrarImpl implements TaskRegistrar {
     private static final Logger log = LoggerFactory.getLogger(TaskRegistrarImpl.class);
 
     private final Map<String, Long> tasks = new ConcurrentHashMap<>();
+    private final Queue<Task> toNextQueue = new ConcurrentLinkedQueue<>();
 
     private final TaskChannel handledTaskChannel;
     private final TaskChannel nextTaskChannel;
@@ -54,30 +57,40 @@ public class TaskRegistrarImpl implements TaskRegistrar {
     @PostConstruct
     public void run() {
         log.info("TaskRegistrar is running");
-        check();
+        checkHandled();
+        sendNext();
     }
 
     @Scheduled(fixedDelay=100)
-    private void check() {
+    private void checkHandled() {
         Task task = handledTaskChannel.take();
         if (task != null) {
             String taskId = task.getId();
-            Long result = tasks.computeIfPresent(taskId, (k, v) -> v + 1);
-            if (result != null) {
-                if (task.isRepetitive()) {
-                    task.getNextOpt().map(nextTaskChannel::push);
-                    log.info("Task {} was sent to {} cycle", taskId, result);
-                } else {
-                    var nextOpt = task.getNextOpt();
-                    nextOpt.ifPresent(next -> {
-                        nextTaskChannel.push(next);
-                        log.info("Next task {} was sent", next.getId());
-                    });
-                    tasks.remove(taskId);
-                    log.info("Task {} was finished", taskId);
-                }
+            if (!task.isRepetitive()) {
+                tasks.remove(taskId);
+                log.info("Task {} was finished", taskId);
+                task.getNextOpt().ifPresent(toNextQueue::offer);
             } else {
-                log.info("Task {} was stopped", taskId);
+                if (tasks.containsKey(taskId)) {
+                    task.getNextOpt().ifPresent(toNextQueue::offer);
+                } else {
+                    log.info("Task {} was stopped", taskId);
+                }
+            }
+        }
+    }
+
+    @Scheduled(fixedDelay=100)
+    private void sendNext() {
+        Task task = toNextQueue.poll();
+        if (task != null) {
+            String taskId = task.getId();
+            Long result = tasks.compute(taskId, (k, v) -> v == null ? 1 : v + 1);
+            nextTaskChannel.push(task);
+            if (result == 1) {
+                log.info("Next task {} was sent", task.getId());
+            } else {
+                log.info("Task {} was sent to {} cycle", taskId, result);
             }
         }
     }
