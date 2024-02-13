@@ -34,19 +34,19 @@ public class Task implements Persistable<String>, Delayed {
 
     @JoinColumn(name = "connection", nullable = false)
     @Nonnull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Connection connection;
 
     @JoinColumn(name = "parameters", nullable = false)
     @Nonnull
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Parameters parameters;
 
     @JoinColumn(name = "message", nullable = false)
     @Nonnull
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Message message;
 

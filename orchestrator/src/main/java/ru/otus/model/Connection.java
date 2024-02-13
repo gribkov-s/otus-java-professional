@@ -61,4 +61,13 @@ public class Connection implements Persistable<String> {
         HashMap<String, Object> newContent = connectionContent.getContent();
         return new Connection(this.getId(), this.getTemplate(), newContent);
     }
+
+    public <T> T getFromContent(String name, Class<T> clazz) {
+        try {
+            Object obj = this.content.getOrDefault(name, null);
+            return clazz.cast(obj);
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
 }

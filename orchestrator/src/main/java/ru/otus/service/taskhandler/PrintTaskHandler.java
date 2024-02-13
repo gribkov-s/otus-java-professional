@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
-public class PrintTaskHandler implements TaskHandler {
+public class PrintTaskHandler extends TaskHandler<Void> {
     private static final Logger log = LoggerFactory.getLogger(PrintTaskHandler.class);
 
     ExecutorService handleThreadPool =  Executors.newFixedThreadPool(1);

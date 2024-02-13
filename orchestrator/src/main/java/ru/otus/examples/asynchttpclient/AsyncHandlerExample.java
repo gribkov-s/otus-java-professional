@@ -7,8 +7,8 @@ public class AsyncHandlerExample extends AsyncCompletionHandler<String> {
     @Override
     public String onCompleted(Response response) throws Exception {
         return
-            "RESULT: " +
-                    response.getStatusCode() +
-                    " - " + System.currentTimeMillis() / 1000;
+                "RESULT: " +
+                        response.getStatusCode() +
+                        " - " + System.currentTimeMillis() / 1000;
     }
 }

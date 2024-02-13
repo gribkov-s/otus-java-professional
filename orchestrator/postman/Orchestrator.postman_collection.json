@@ -1,0 +1,1435 @@
+{
+	"info": {
+		"_postman_id": "55c74513-4823-4a07-8224-617dded7902b",
+		"name": "Orchestrator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25232298"
+	},
+	"item": [
+		{
+			"name": "Message template",
+			"item": [
+				{
+					"name": "Create message template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"mt1\",\r\n    \"fields\": [\r\n        {\"name\":\"id\", \"type\":\"number\"},\r\n        {\"name\":\"name\", \"type\":\"text\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/message-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"message-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create empty message template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"empty\",\r\n    \"fields\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/message-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"message-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get message template ids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/message-templates/ids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"message-templates",
+								"ids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get message template",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/message-templates/mt1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"message-templates",
+								"mt1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete message template",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/message-templates/mt1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"message-templates",
+								"mt1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Message",
+			"item": [
+				{
+					"name": "Create message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"m1\",\r\n    \"template\": {\r\n        \"id\": \"mt1\",\r\n        \"fields\": [\r\n            {\"name\":\"id\", \"type\":\"number\"},\r\n            {\"name\":\"name\", \"type\":\"text\"}\r\n        ]\r\n    },\r\n    \"content\": {\"id\":1,\"name\":\"a\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create empty message",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"empty\",\r\n    \"template\": {\r\n        \"id\": \"empty\",\r\n        \"fields\": []\r\n    },\r\n    \"content\": {}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get message",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/messages/test01",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"messages",
+								"test01"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch message",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"messageId\": \"m1\",\r\n    \"content\": {\"id\":1,\"name\":\"x\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/messages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete message",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/messages/m1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"messages",
+								"m1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parameters template",
+			"item": [
+				{
+					"name": "Create parameters template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"pt1\",\r\n    \"fields\": [\r\n        {\"name\":\"id\", \"type\":\"number\"},\r\n        {\"name\":\"name\", \"type\":\"text\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create get httpbin.org/delay parameters template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"get_httpbin_delay\",\r\n    \"fields\": [\r\n        {\"name\":\"delaySec\", \"type\":\"number\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parameters template ids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters-templates/ids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters-templates",
+								"ids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parameters template",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters-templates/pt1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters-templates",
+								"pt1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete parameters template",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters-templates/pt1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters-templates",
+								"pt1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Parameters",
+			"item": [
+				{
+					"name": "Create parameters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"p1\",\r\n    \"template\": {\r\n        \"id\": \"pt1\",\r\n        \"fields\": [\r\n            {\"name\":\"id\", \"type\":\"number\"},\r\n            {\"name\":\"name\", \"type\":\"text\"}\r\n        ]\r\n    },\r\n    \"content\": {\"id\":1,\"name\":\"a\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create get httpbin.org/delay parameters 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"get_httpbin_delay_1\",\r\n    \"template\": {\r\n        \"id\": \"get_httpbin_delay\",\r\n        \"fields\": [\r\n            {\"name\":\"delaySec\", \"type\":\"number\"}\r\n        ]\r\n    },\r\n    \"content\": {\"delaySec\": 10}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create get httpbin.org/delay parameters 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"get_httpbin_delay_2\",\r\n    \"template\": {\r\n        \"id\": \"get_httpbin_delay\",\r\n        \"fields\": [\r\n            {\"name\":\"delaySec\", \"type\":\"number\"}\r\n        ]\r\n    },\r\n    \"content\": {\"delaySec\": 20}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get parameters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters/p1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters",
+								"p1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch parameters",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"parametersId\": \"get_httpbin_delay_2\",\r\n    \"content\": {\"delaySec\": 20}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete parameters",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/parameters/p1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"parameters",
+								"p1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Connection template",
+			"item": [
+				{
+					"name": "Create connection template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"ct1\",\r\n    \"fields\": [\r\n        {\"name\":\"id\", \"type\":\"number\"},\r\n        {\"name\":\"name\", \"type\":\"text\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connection-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connection-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create unsecured http get connection template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"unsec_http_get\",\r\n    \"fields\": [\r\n        {\"name\":\"urlWithPathParams\", \"type\":\"text\"}\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connection-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connection-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get connection template ids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connection-templates/ids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connection-templates",
+								"ids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get connection template",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connection-templates/ct1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connection-templates",
+								"ct1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete connection template",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connection-templates/ct1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connection-templates",
+								"ct1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Connection",
+			"item": [
+				{
+					"name": "Create connection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"c1\",\r\n    \"template\": {\r\n        \"id\": \"ct1\",\r\n        \"fields\": [\r\n            {\"name\":\"id\", \"type\":\"number\"},\r\n            {\"name\":\"name\", \"type\":\"text\"}\r\n        ]\r\n    },\r\n    \"content\": {\"id\":1,\"name\":\"a\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create get httpbin.org/delay connection",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"get_httpbin_delay\",\r\n    \"template\": {\r\n        \"id\": \"unsec_http_get\",\r\n        \"fields\": [\r\n            {\"name\":\"urlWithPathParams\", \"type\":\"text\"}\r\n        ]\r\n    },\r\n    \"content\": {\"urlWithPathParams\": \"https://httpbin.org/delay/{delaySec}\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create connection Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"c1\",\r\n    \"template\": {\r\n        \"id\": \"ct1\",\r\n        \"fields\": [\r\n            {\"name\":\"id\", \"type\":\"number\"},\r\n            {\"name\":\"name\", \"type\":\"text\"}\r\n        ]\r\n    },\r\n    \"content\": {\"id\":1,\"name\":\"a\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get connection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connections/c1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connections",
+								"c1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch connection",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"connectionId\": \"c1\",\r\n    \"content\": {\"id\":1,\"name\":\"x\"}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete connection",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/connections/c1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"connections",
+								"c1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task template",
+			"item": [
+				{
+					"name": "Create task template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"tt1\",\r\n    \"taskType\": \"HTTP_GET\",\r\n    \"connection\": {\r\n        \"id\": \"c1\",\r\n        \"template\": {\r\n            \"id\": \"ct1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"parametersTemplate\": {\r\n        \"id\": \"pt1\",\r\n        \"fields\": [\r\n            {\"name\":\"id\", \"type\":\"number\"},\r\n            {\"name\":\"name\", \"type\":\"text\"}\r\n        ]\r\n    },\r\n    \"messageTemplate\": {\r\n        \"id\": \"mt1\",\r\n        \"fields\": [\r\n            {\"name\":\"id\", \"type\":\"number\"},\r\n            {\"name\":\"name\", \"type\":\"text\"}\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/task-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"task-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create get httpbin.org/delay task template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"get_httpbin_delay\",\r\n    \"taskType\": \"HTTP_GET\",\r\n    \"connection\": {\r\n        \"id\": \"get_httpbin_delay\",\r\n        \"template\": {\r\n            \"id\": \"unsec_http_get\",\r\n            \"fields\": [\r\n                {\"name\":\"urlWithPathParams\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"urlWithPathParams\": \"https://httpbin.org/delay/{delaySec}\"}\r\n    },\r\n    \"parametersTemplate\": {\r\n        \"id\": \"get_httpbin_delay\",\r\n        \"fields\": [\r\n            {\"name\":\"delaySec\", \"type\":\"number\"}\r\n        ]\r\n    },\r\n    \"messageTemplate\": {\r\n        \"id\": \"empty\",\r\n        \"fields\": []\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/task-templates",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"task-templates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task template ids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/task-templates/ids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"task-templates",
+								"ids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/task-templates/task-types",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"task-templates",
+								"task-types"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task template",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/task-templates/tt1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"task-templates",
+								"tt1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete task template",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/task-templates/tt1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"task-templates",
+								"tt1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create task 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"t1\",\r\n    \"taskType\": \"HTTP_GET\",\r\n    \"connection\": {\r\n        \"id\": \"c1\",\r\n        \"template\": {\r\n            \"id\": \"ct1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"parameters\": {\r\n        \"id\": \"p1\",\r\n        \"template\": {\r\n            \"id\": \"pt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"message\": {\r\n        \"id\": \"m1\",\r\n        \"template\": {\r\n            \"id\": \"mt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"rangeSec\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create get httpbin.org/delay task 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"get_httpbin_delay_1\",\r\n    \"taskType\": \"HTTP_GET\",\r\n    \"connection\": {\r\n        \"id\": \"get_httpbin_delay\",\r\n        \"template\": {\r\n            \"id\": \"unsec_http_get\",\r\n            \"fields\": [\r\n                {\"name\":\"urlWithPathParams\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"urlWithPathParams\": \"https://httpbin.org/delay/{delaySec}\"}\r\n    },\r\n    \"parameters\": {\r\n        \"id\": \"get_httpbin_delay_1\",\r\n        \"template\": {\r\n            \"id\": \"get_httpbin_delay\",\r\n            \"fields\": [\r\n                {\"name\":\"delaySec\", \"type\":\"number\"}\r\n            ]\r\n        },\r\n        \"content\": {\"delaySec\": 10}\r\n    },\r\n    \"message\": {\r\n        \"id\": \"empty\",\r\n        \"template\": {\r\n            \"id\": \"empty\",\r\n            \"fields\": []\r\n        },\r\n        \"content\": {}\r\n    },\r\n    \"rangeSec\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create get httpbin.org/delay task 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"get_httpbin_delay_2\",\r\n    \"taskType\": \"HTTP_GET\",\r\n    \"connection\": {\r\n        \"id\": \"get_httpbin_delay\",\r\n        \"template\": {\r\n            \"id\": \"unsec_http_get\",\r\n            \"fields\": [\r\n                {\"name\":\"urlWithPathParams\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"urlWithPathParams\": \"https://httpbin.org/delay/{delaySec}\"}\r\n    },\r\n    \"parameters\": {\r\n        \"id\": \"get_httpbin_delay_2\",\r\n        \"template\": {\r\n            \"id\": \"get_httpbin_delay\",\r\n            \"fields\": [\r\n                {\"name\":\"delaySec\", \"type\":\"number\"}\r\n            ]\r\n        },\r\n        \"content\": {\"delaySec\": 20}\r\n    },\r\n    \"message\": {\r\n        \"id\": \"empty\",\r\n        \"template\": {\r\n            \"id\": \"empty\",\r\n            \"fields\": []\r\n        },\r\n        \"content\": {}\r\n    },\r\n    \"rangeSec\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task for run 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"print_1\",\r\n    \"taskType\": \"PRINT\",\r\n    \"connection\": {\r\n        \"id\": \"c1\",\r\n        \"template\": {\r\n            \"id\": \"ct1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"parameters\": {\r\n        \"id\": \"p1\",\r\n        \"template\": {\r\n            \"id\": \"pt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"message\": {\r\n        \"id\": \"m1\",\r\n        \"template\": {\r\n            \"id\": \"mt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"rangeSec\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task for run 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"print_2\",\r\n    \"taskType\": \"PRINT\",\r\n    \"connection\": {\r\n        \"id\": \"c1\",\r\n        \"template\": {\r\n            \"id\": \"ct1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"parameters\": {\r\n        \"id\": \"p1\",\r\n        \"template\": {\r\n            \"id\": \"pt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"message\": {\r\n        \"id\": \"m1\",\r\n        \"template\": {\r\n            \"id\": \"mt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"rangeSec\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task for run 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"print_3\",\r\n    \"taskType\": \"PRINT\",\r\n    \"connection\": {\r\n        \"id\": \"c1\",\r\n        \"template\": {\r\n            \"id\": \"ct1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"parameters\": {\r\n        \"id\": \"p1\",\r\n        \"template\": {\r\n            \"id\": \"pt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"message\": {\r\n        \"id\": \"m1\",\r\n        \"template\": {\r\n            \"id\": \"mt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"rangeSec\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create task 2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"t2\",\r\n    \"taskType\": \"HTTP_GET\",\r\n    \"connection\": {\r\n        \"id\": \"c1\",\r\n        \"template\": {\r\n            \"id\": \"ct1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"parameters\": {\r\n        \"id\": \"p1\",\r\n        \"template\": {\r\n            \"id\": \"pt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"message\": {\r\n        \"id\": \"m1\",\r\n        \"template\": {\r\n            \"id\": \"mt1\",\r\n            \"fields\": [\r\n                {\"name\":\"id\", \"type\":\"number\"},\r\n                {\"name\":\"name\", \"type\":\"text\"}\r\n            ]\r\n        },\r\n        \"content\": {\"id\":1,\"name\":\"a\"}\r\n    },\r\n    \"rangeSec\": 30\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task ids",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/ids",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"ids"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get task",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/print_2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"print_2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch task range",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskId\": \"print_3\",\r\n    \"rangeSec\": 20\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/update-range",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"update-range"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch task next",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskId\": \"print_1\",\r\n    \"nextId\": \"print_2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/set-next-task",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"set-next-task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/print_2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"print_2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task running",
+			"item": [
+				{
+					"name": "Run task 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "print_1",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/running",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"running"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Run get httpbin.org/delay task 1",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "get_httpbin_delay_2",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/running",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"running"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check task 1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/running/print_3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"running",
+								"print_3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Stop task 1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/orchestrator/tasks/running/print_2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"orchestrator",
+								"tasks",
+								"running",
+								"print_2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -18,7 +18,7 @@ public class TaskExchangeImpl implements TaskExchange {
     private static final Logger log = LoggerFactory.getLogger(TaskExchangeImpl.class);
 
     @Autowired
-    private final Map<String, TaskHandler> handlers = new ConcurrentHashMap<>();
+    private final Map<String, TaskHandler<?>> handlers = new ConcurrentHashMap<>();
 
     private final TaskChannel inputTaskChannel;
 
@@ -41,7 +41,7 @@ public class TaskExchangeImpl implements TaskExchange {
         if (task != null) {
             String taskId = task.getId();
             String handlerId = task.getTaskTypeTitle();
-            TaskHandler handler = handlers.get(handlerId);
+            TaskHandler<?> handler = handlers.get(handlerId);
             if (handler != null) {
                 handler.handle(task);
                 log.info("Task: {} was sent to handler: {}", taskId, handlerId);
