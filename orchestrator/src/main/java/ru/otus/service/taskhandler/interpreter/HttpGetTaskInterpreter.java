@@ -3,6 +3,7 @@ package ru.otus.service.taskhandler.interpreter;
 import org.asynchttpclient.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.otus.model.Connection;
 import ru.otus.model.Parameters;
@@ -10,6 +11,7 @@ import ru.otus.model.Task;
 import java.util.HashMap;
 
 @Component
+@Qualifier("httpGetTaskInterpreter")
 public class HttpGetTaskInterpreter implements TaskInterpreter<BoundRequestBuilder> {
     private static final Logger log = LoggerFactory.getLogger(HttpGetTaskInterpreter.class);
 

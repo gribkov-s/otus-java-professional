@@ -1,6 +1,9 @@
 package ru.otus.service.taskhandler;
 
-import org.asynchttpclient.*;
+import org.asynchttpclient.AsyncCompletionHandler;
+import org.asynchttpclient.BoundRequestBuilder;
+import org.asynchttpclient.ListenableFuture;
+import org.asynchttpclient.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +18,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service
-public class HttpGetTaskHandler extends TaskHandler<BoundRequestBuilder> {
-    private static final Logger log = LoggerFactory.getLogger(HttpGetTaskHandler.class);
+public class HttpPostTaskHandler extends TaskHandler<BoundRequestBuilder> {
+    private static final Logger log = LoggerFactory.getLogger(HttpPostTaskHandler.class);
 
     private final ExecutorService handleThreadPool =  Executors.newFixedThreadPool(3);
     private final ExecutorService sendThreadPool =  Executors.newFixedThreadPool(1);
@@ -24,23 +27,23 @@ public class HttpGetTaskHandler extends TaskHandler<BoundRequestBuilder> {
     private final TaskChannel handledTaskChannel;
 
     @Autowired
-    public HttpGetTaskHandler(TaskChannel handledTaskChannel,
-                              @Qualifier("httpGetTaskInterpreter")
-                                      TaskInterpreter<BoundRequestBuilder> interpreter) {
+    public HttpPostTaskHandler(TaskChannel handledTaskChannel,
+                               @Qualifier("httpPostTaskInterpreter")
+                                       TaskInterpreter<BoundRequestBuilder> interpreter) {
         this.handledTaskChannel = handledTaskChannel;
         this.interpreter = interpreter;
     }
 
     @Override
     public void handle(Task task) {
-        BoundRequestBuilder getRequest = interpreter.interpret(task);
-        ListenableFuture<String> responseFuture = getRequest.execute(new AsyncHttpResponseHandler());
+        BoundRequestBuilder postRequest = interpreter.interpret(task);
+        ListenableFuture<String> responseFuture = postRequest.execute(new AsyncHttpResponseHandler());
 
         responseFuture.addListener(
                 () -> {
                     try {
                         String response = responseFuture.get();
-                        log.info("Handled task: {} by handler: {}. Result\n{}",
+                        log.info("Handled task: {} by handler: {}. Result: {}",
                                 task.getId(),
                                 this.getClass().getSimpleName(),
                                 response);
