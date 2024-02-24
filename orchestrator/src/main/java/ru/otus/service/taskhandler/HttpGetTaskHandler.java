@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.otus.model.Task;
 import ru.otus.service.taskchannel.TaskChannel;
@@ -18,17 +19,18 @@ import java.util.concurrent.Executors;
 public class HttpGetTaskHandler extends TaskHandler<BoundRequestBuilder> {
     private static final Logger log = LoggerFactory.getLogger(HttpGetTaskHandler.class);
 
-    private final ExecutorService handleThreadPool =  Executors.newFixedThreadPool(3);
-    private final ExecutorService sendThreadPool =  Executors.newFixedThreadPool(1);
+    private final ExecutorService handleThreadPool;
 
     private final TaskChannel handledTaskChannel;
 
     @Autowired
     public HttpGetTaskHandler(TaskChannel handledTaskChannel,
                               @Qualifier("httpGetTaskInterpreter")
-                                      TaskInterpreter<BoundRequestBuilder> interpreter) {
+                                      TaskInterpreter<BoundRequestBuilder> interpreter,
+                              @Value("${threadPoolSize.handlers.httpGetTaskHandler}") int threadPoolSize) {
         this.handledTaskChannel = handledTaskChannel;
         this.interpreter = interpreter;
+        this.handleThreadPool =  Executors.newFixedThreadPool(threadPoolSize);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class HttpGetTaskHandler extends TaskHandler<BoundRequestBuilder> {
                 },
                 handleThreadPool);
 
-        sendThreadPool.submit(() -> handledTaskChannel.push(task));
+        handledTaskChannel.push(task);
     }
 
     private static class AsyncHttpResponseHandler extends AsyncCompletionHandler<String> {

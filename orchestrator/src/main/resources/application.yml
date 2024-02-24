@@ -15,3 +15,9 @@ server:
   port: 8080
   servlet:
     contextPath: /orchestrator
+
+threadPoolSize:
+  handlers:
+    printTaskHandler: 1
+    httpGetTaskHandler: 3
+    httpPostTaskHandler: 3
