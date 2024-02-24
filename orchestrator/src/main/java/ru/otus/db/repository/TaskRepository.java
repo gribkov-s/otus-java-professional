@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, String> {
-    @Query(value = "SELECT id FROM task", nativeQuery = true)
+    @Query(value = "SELECT t.id FROM Task t")
     List<String> findAllIds();
 }

@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface ConnectionTemplateRepository extends JpaRepository<ConnectionTemplate, String> {
-    @Query(value = "SELECT id FROM connection_template", nativeQuery = true)
+    @Query(value = "SELECT ct.id FROM ConnectionTemplate ct")
     List<String> findAllIds();
 }

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface MessageTemplateRepository extends JpaRepository<MessageTemplate, String> {
-    @Query(value = "SELECT id FROM message_template", nativeQuery = true)
+    @Query(value = "select mt.id from MessageTemplate mt")
     List<String> findAllIds();
 }

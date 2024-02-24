@@ -3,7 +3,6 @@ package ru.otus.service.taskhandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import ru.otus.model.Task;
 import ru.otus.service.taskchannel.TaskChannel;
@@ -30,10 +29,9 @@ public class PrintTaskHandler extends TaskHandler<Void> {
     }
 
     private void print(Task task) {
-        log.info("{} Handled task: {} by handler: {}",
+        log.info("{} Handled task {}.",
                 System.currentTimeMillis() / 1000,
-                task.getId(),
-                this.getClass().getSimpleName());
+                task.getId());
         handledTaskChannel.push(task);
     }
 }

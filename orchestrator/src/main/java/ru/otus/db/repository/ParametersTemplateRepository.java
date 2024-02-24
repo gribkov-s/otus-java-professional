@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ParametersTemplateRepository extends JpaRepository<ParametersTemplate, String> {
-    @Query(value = "SELECT id FROM parameters_template", nativeQuery = true)
+    @Query(value = "SELECT pt.id FROM ParametersTemplate pt")
     List<String> findAllIds();
 }

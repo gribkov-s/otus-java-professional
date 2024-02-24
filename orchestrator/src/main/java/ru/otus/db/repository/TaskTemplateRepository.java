@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface TaskTemplateRepository extends JpaRepository<TaskTemplate, String> {
-    @Query(value = "SELECT id FROM task_template", nativeQuery = true)
+    @Query(value = "SELECT tt.id FROM TaskTemplate tt")
     List<String> findAllIds();
 }

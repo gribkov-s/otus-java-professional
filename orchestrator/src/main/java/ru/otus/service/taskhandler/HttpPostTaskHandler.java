@@ -43,14 +43,17 @@ public class HttpPostTaskHandler extends TaskHandler<BoundRequestBuilder> {
                 () -> {
                     try {
                         String response = responseFuture.get();
-                        log.info("Handled task: {} by handler: {}. Result: {}",
+                        log.info("Handled task {}, result\n{}",
                                 task.getId(),
-                                this.getClass().getSimpleName(),
                                 response);
-                    } catch (InterruptedException | ExecutionException e) {
-                        log.warn("Failed task: {} by handler: {}\n{}",
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.warn("Failed task {} because of InterruptedException: \n{}",
                                 task.getId(),
-                                this.getClass().getSimpleName(),
+                                e.getMessage());
+                    } catch (ExecutionException e) {
+                        log.warn("Failed task {} because of ExecutionException:\n{}",
+                                task.getId(),
                                 e.getMessage());
                     }
                 },

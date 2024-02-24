@@ -18,13 +18,14 @@ public class TaskExchangeImpl implements TaskExchange {
     private static final Logger log = LoggerFactory.getLogger(TaskExchangeImpl.class);
 
     @Autowired
-    private final Map<String, TaskHandler<?>> handlers = new ConcurrentHashMap<>();
+    private final Map<String, TaskHandler<?>> handlers;
 
     private final TaskChannel inputTaskChannel;
 
     @Autowired
     public TaskExchangeImpl(TaskChannel inputTaskChannel) {
         this.inputTaskChannel = inputTaskChannel;
+        this.handlers = new ConcurrentHashMap<>();
     }
 
     @Override
