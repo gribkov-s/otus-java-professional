@@ -39,6 +39,7 @@ allprojects {
     val stomp: String by project
     val bootstrap: String by project
     val r2dbcPostgresql: String by project
+    val mapstruct: String by project
 
     apply(plugin = "io.spring.dependency-management")
     dependencyManagement {
@@ -60,6 +61,12 @@ allprojects {
             dependency("org.webjars:bootstrap:$bootstrap")
 
             dependency("io.r2dbc:r2dbc-postgresql:$r2dbcPostgresql")
+
+            dependency("org.mapstruct:mapstruct:$mapstruct")
+            dependency("org.mapstruct:mapstruct-processor:$mapstruct")
+            dependency("org.projectlombok:lombok-mapstruct-binding:0.2.0")
+
+            dependency("org.asynchttpclient:async-http-client:2.2.0")
         }
     }
 

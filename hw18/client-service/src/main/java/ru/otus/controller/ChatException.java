@@ -1,4 +1,4 @@
-package ru.otus.controllers;
+package ru.otus.controller;
 
 public class ChatException extends RuntimeException {
     public ChatException(String message) {

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+    label {
+        display: block;
+    }
+    input {
+        width:234px;
+    }
+    select {
+        width:240px;
+    }
+    button {
+        width:119px;
+        margin: 2px 0;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Message template</title>
+    <script>
+
+        var tmpl1 = {
+            id: "service_1_put",
+            fields: [{name: "id", type: "text"}, {name: "amount", type: "number"}]
+        };
+        var tmpl2 = {
+            id: "service_1_post",
+            fields: [{name: "id", type: "text"}, {name: "type", type: "text"}, {name: "expression", type: "text"}, {name: "attempts", type: "number"}, {name: "date", type: "datetime-local"}]
+        };
+        var tmpl3 = {
+            id: "service_1_patch",
+            fields: [{name: "id", type: "text"}, {name: "blocked", type: "checkbox"}]
+        };
+
+        var messageTemplates = new Map();
+        messageTemplates.set("service_1_put", tmpl1);
+        messageTemplates.set("service_1_post", tmpl2);
+        messageTemplates.set("service_1_patch", tmpl3);
+
+
+        async function getTemplates() {
+            var templates = messageTemplates.keys();
+            var sel = document.getElementById("template");
+            sel.length = 0;
+            for (const tmpl of templates) {
+                addNewOption(sel, tmpl);
+            }
+        };
+
+        async function formByTemplate() {
+            var select = document.getElementById("template");
+            var tmplId = select.options[select.selectedIndex].text;
+            var tmpl = messageTemplates.get(tmplId);
+            var fields = tmpl.fields;
+            var fieldsForm = document.getElementById("messageFields");
+            fieldsForm.replaceChildren();
+
+            for (const field of fields) {
+                var name = field.name
+                var input = document.createElement("input");
+                input.id = name;
+                input.name = name;
+                input.type = field.type;
+                input.class = "field";
+
+                var label = document.createElement("Label");
+                label.htmlFor = name;
+                label.innerHTML = name;
+
+                fieldsForm.appendChild(label);
+                fieldsForm.appendChild(input);
+                fieldsForm.appendChild(document.createElement("br"));
+            }
+        };
+
+        async function reset() {
+            var fieldsForm = document.getElementById("messageFields");
+            fieldsForm.replaceChildren();
+        };
+
+        async function save() {
+            var id = document.getElementById("id").value;
+
+            if (id !== "") {
+                var fieldsForm = document.getElementById("messageFields");
+                var fieldsData = new FormData(fieldsForm);
+                var fields = Object.fromEntries(fieldsData);
+                var fieldsJson = JSON.stringify(fields);
+
+                var templates = document.getElementById("template");
+                var tmplId = templates.options[templates.selectedIndex].text;
+
+                var message = {
+                    id: id,
+                    template: tmplId,
+                    content: fieldsJson
+                };
+
+                var messageBody = JSON.stringify(message);
+                document.write(messageBody);
+            }
+        };
+
+        function addNewOption(select, text) {
+            var option = document.createElement("option");
+            option.text = text;
+            select.add(option);
+        }
+    </script>
+</head>
+<body>
+    <h4>Message</h4>
+    <form id = "messageTemplate">
+        <label for="template">Message template</label>
+        <select id="template" type="text" name="template"></select>
+    </form>
+    <br>
+    <form id = "messageId">
+        <label for="id">Entity ID</label>
+        <input type="text" id="id" name="id"><br>
+    </form>
+    <br>
+    <form id = "messageFields"></form>
+    <br>
+    <button onclick="getTemplates()">Get templates</button>
+    <button onclick="formByTemplate()">Select template</button>
+    <br>
+    <button onclick="reset()">Reset</button>
+    <button onclick="save()">Save</button>
+    <br>
+</body>
+</html>
