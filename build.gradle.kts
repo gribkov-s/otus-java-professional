@@ -67,6 +67,8 @@ allprojects {
             dependency("org.projectlombok:lombok-mapstruct-binding:0.2.0")
 
             dependency("org.asynchttpclient:async-http-client:2.2.0")
+
+            dependency("io.stargate.grpc:grpc-proto:1.0.41") ///
         }
     }
 

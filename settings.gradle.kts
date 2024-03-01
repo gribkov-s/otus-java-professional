@@ -18,6 +18,7 @@ include("hw17")
 include("hw18:client-service")
 include("hw18:datastore-service")
 include("orchestrator")
+include("cassandra")
 
 pluginManagement {
     val jgitver: String by settings
