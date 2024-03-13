@@ -96,11 +96,14 @@ public class MessageController {
         /*
         /user/3c3416b8-9b24-4c75-b38f-7c96953381d1/topic/response.1
          */
-
+        buffer.clear();
         getMessagesByRoomId(roomId)
                 .concatWith(Flux.fromStream(buffer.stream()))
                 .doOnError(ex -> logger.error("getting messages for roomId:{} failed", roomId, ex))
-                .doFinally(s -> addDestination(roomIdStr, simpDestination))
+                .doFinally(s -> {
+                    addDestination(roomIdStr, simpDestination);
+                    buffer.clear();
+                })
                 .subscribe(message -> template.convertAndSend(simpDestination, message));
     }
 
