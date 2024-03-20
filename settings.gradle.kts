@@ -19,6 +19,7 @@ include("hw18:client-service")
 include("hw18:datastore-service")
 include("orchestrator")
 include("cassandra")
+include("kafka-connect-cassandra-multi-source")
 
 pluginManagement {
     val jgitver: String by settings

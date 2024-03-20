@@ -69,6 +69,11 @@ allprojects {
             dependency("org.asynchttpclient:async-http-client:2.2.0")
 
             dependency("io.stargate.grpc:grpc-proto:1.0.41") ///
+
+            dependency("com.datastax.cassandra:cassandra-driver-core:3.11.3") ///
+            dependency("com.datastax.cassandra:cassandra-driver-mapping:3.11.3") ///
+            dependency("org.apache.kafka:connect-api:3.5.1") ///
+            dependency("com.codahale.metrics:metrics-core:3.0.2") ///
         }
     }
 
