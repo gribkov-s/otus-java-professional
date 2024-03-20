@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class HistoryListener implements Listener, HistoryReader {
 
-    Map<Long, Message> history = new HashMap<>();
+    private final Map<Long, Message> history = new HashMap<>();
 
     @Override
     public void onUpdated(Message msg) {
@@ -19,7 +19,6 @@ public class HistoryListener implements Listener, HistoryReader {
 
     @Override
     public Optional<Message> findMessageById(long id) {
-        return Optional.ofNullable(
-                history.getOrDefault(id, null));
+        return Optional.ofNullable(history.get(id));
     }
 }
