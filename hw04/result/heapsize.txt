@@ -1,0 +1,31 @@
+До оптимизации:
+
+-Xms256m -Xmx256m   OUT OF MEMORY
+-Xms512m -Xmx512m   spend msec:11595, sec:11
+-Xms768m -Xmx768m   spend msec:10798, sec:10
+-Xms1024m -Xmx1024m spend msec:10812, sec:10
+-Xms1280m -Xmx1280m spend msec:10680, sec:10
+-Xms1536m -Xmx1536m spend msec:10365, sec:10
+-Xms1664m -Xmx1664m spend msec:10294, sec:10
+-Xms1792m -Xmx1792m spend msec:9857, sec:9
+-Xms1920m -Xmx1920m spend msec:10185, sec:10
+-Xms2048m -Xmx2048m spend msec:10367, sec:10
+-Xms4096m -Xmx4096m spend msec:10667, sec:10
+
+ВЫВОД: максимальная скорость выполнения достигается при размере 1792 Mb
+-----------------------------------------------
+
+Оптимизация - замена Integer на int в Summator и Data
+
+-----------------------------------------------
+После оптимизации:
+
+-Xms256m -Xmx256m   spend msec:2112, sec:2
+-Xms512m -Xmx512m   spend msec:2071, sec:2
+-Xms768m -Xmx768m   spend msec:2117, sec:2
+-Xms896m -Xmx896m   spend msec:2085, sec:2
+-Xms1024m -Xmx1024m spend msec:2071, sec:2
+-Xms1152m -Xmx1152m spend msec:2055, sec:2
+-Xms1280m -Xmx1280m spend msec:2057, sec:2
+
+ВЫВОД: максимальная скорость выполнения достигается при размере 1152 Mb

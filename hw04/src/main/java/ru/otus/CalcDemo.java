@@ -1,8 +1,8 @@
 package ru.otus;
 
 /*
--Xms256m
--Xmx256m
+-Xms1024m
+-Xmx1024m
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath=./logs/heapdump.hprof
 -XX:+UseG1GC

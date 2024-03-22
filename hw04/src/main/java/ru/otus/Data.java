@@ -1,9 +1,9 @@
 package ru.otus;
 
 public class Data {
-    private final Integer value;
+    private final int value;
 
-    public Data(Integer value) {
+    public Data(int value) {
         this.value = value;
     }
 
