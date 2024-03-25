@@ -3,7 +3,9 @@ package ru.otus;
 import ru.otus.cassandra.cluster.CassandraCredAuthCluster;
 import ru.otus.cassandra.conf.CassandraCredAuthConf;
 import ru.otus.cassandra.connector.CassandraConnectorImpl;
-import ru.otus.cassandra.mapper.StateMapperHorizontal;
+import ru.otus.cassandra.mapper.ResultSetMapperImpl;
+import ru.otus.cassandra.mapper.handler.HorizontalResultSetHandler;
+import ru.otus.model.inputschema.HorizontalInputSchema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,9 @@ public class Main {
 
         String query = "SELECT amount, num FROM sef.metrics_3 WHERE id = '000'";
 
-        var mapper = new StateMapperHorizontal(dataFields);
+        var schema = new HorizontalInputSchema(dataFields);
+        var handler = new HorizontalResultSetHandler(schema);
+        var mapper = new ResultSetMapperImpl(handler);
 
         var set = session.execute(query);
         var state = mapper.map(set, id);

@@ -2,14 +2,13 @@ package ru.otus.model;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @Setter
 public class State {
-    private String id;
+    private final String id;
     private final Map<String, Object> data;
 
     public State(String id) {
@@ -29,5 +28,9 @@ public class State {
         } else {
             throw new RuntimeException("Ids are not equal.");
         }
+    }
+
+    public Map<String, Object> getData() {
+        return this.data;
     }
 }
