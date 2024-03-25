@@ -15,17 +15,19 @@
 ВЫВОД: максимальная скорость выполнения достигается при размере 1792 Mb
 -----------------------------------------------
 
-Оптимизация - замена Integer на int в Summator и Data
+Оптимизация
+- замена Integer на int в Summator и Data
+- добавление setter в Data и переиспользование одного экземпляра класса
 
 -----------------------------------------------
 После оптимизации:
 
--Xms256m -Xmx256m   spend msec:2112, sec:2
--Xms512m -Xmx512m   spend msec:2071, sec:2
--Xms768m -Xmx768m   spend msec:2117, sec:2
--Xms896m -Xmx896m   spend msec:2085, sec:2
--Xms1024m -Xmx1024m spend msec:2071, sec:2
--Xms1152m -Xmx1152m spend msec:2055, sec:2
--Xms1280m -Xmx1280m spend msec:2057, sec:2
+-Xms256m -Xmx256m   spend msec:1610, sec:1
+-Xms512m -Xmx512m   spend msec:1609, sec:1
+-Xms768m -Xmx768m   spend msec:1609, sec:1
+-Xms896m -Xmx896m   spend msec:1594, sec:1
+-Xms1024m -Xmx1024m spend msec:1594, sec:1
+-Xms1152m -Xmx1152m spend msec:1609, sec:1
+-Xms1280m -Xmx1280m spend msec:1594, sec:1
 
-ВЫВОД: максимальная скорость выполнения достигается при размере 1152 Mb
+ВЫВОД: максимальная скорость выполнения достигается при размере 896 Mb

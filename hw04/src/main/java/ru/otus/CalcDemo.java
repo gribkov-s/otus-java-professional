@@ -17,9 +17,10 @@ public class CalcDemo {
         long counter = 100_000_000;
         var summator = new ru.otus.Summator();
         long startTime = System.currentTimeMillis();
+        var data = new ru.otus.Data(0);
 
         for (var idx = 0; idx < counter; idx++) {
-            var data = new ru.otus.Data(idx);
+            data.setValue(idx);
             summator.calc(data);
 
             if (idx % 10_000_000 == 0) {

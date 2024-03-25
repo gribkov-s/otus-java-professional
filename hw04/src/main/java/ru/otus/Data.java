@@ -1,13 +1,17 @@
 package ru.otus;
 
 public class Data {
-    private final int value;
+    private int value;
 
     public Data(int value) {
         this.value = value;
     }
 
-    public Integer getValue() {
+    public int getValue() {
         return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }
